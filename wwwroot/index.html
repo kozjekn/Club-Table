@@ -2,8 +2,95 @@
 <html>
     <head>
         <title>Smart table</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body{
+                margin-top: 20px;
+                background-color: #008446;
+                /* border-top: 10px solid white; */
+            }
+            #line {
+                overflow: hidden;
+                background-color: #333;
+                position: fixed; /* Set the navbar to fixed position */
+                top: 0; /* Position the navbar at the top of the page */
+                width: 100%; /* Full width */
+            }
+
+        </style>
     </head>
-    <body>
-        Hello world!
+    <body id="body">
+        <img id="logo" src="./assets/lasko_logo.png" style="display: block; margin: auto auto; ">
+        <img src="./assets/lkp_dr_team.png" style="display: block; margin: auto auto; top: 706px; ">
+
+        <script>
+            let playingHandGame = false;
+            let playingDrinkinGame = false;
+
+            function handGame(){
+                if(!playingHandGame && !playingDrinkinGame){
+                    playingHandGame = true;
+                    let element = document.getElementById('logo')
+                    element.style.opacity = 0;
+                    
+                    let timeOutHand = setTimeout(() =>{
+                        element.style.opacity = 1;
+                        clearTimeout(timeOutHand);
+                        playingHandGame = false;
+                    }, randomIntFromInterval(60000, 300000))
+                }
+                
+            }
+
+            async function drinkingGame(){
+                if(!playingDrinkinGame && !playingHandGame){
+                    playingDrinkinGame = true;
+                    let element = document.getElementById('logo')
+                    let iterations = randomIntFromInterval(16, 80);
+                    await sleep(500);
+                    for(let i = 1; i < iterations; i++){
+                        let position = i % 4;
+                        let time = 300;
+                        //let time = ((iterations - i) + 1) * 75;
+                        //time = time < 200 ? 200 : time;
+                        if(position == 0){
+                            element.style.transform = 'rotate(0deg)'
+                            await sleep(time);
+                        }
+                        else if(position == 1){
+                            element.style.transform = 'rotate(90deg)'
+                            await sleep(time);
+                        }
+                        else if(position == 2){
+                            element.style.transform = 'rotate(180deg)'
+                            await sleep(time);
+                        }
+                        else if(position == 3){
+                            element.style.transform = 'rotate(270deg)'
+                            await sleep(time);
+                        }
+                    }
+                    await sleep(750);
+                    element.style.opacity = 0;
+                    await sleep(500);
+                    element.style.opacity = 1;
+                    await sleep(750);
+                    element.style.opacity = 0;
+                    await sleep(500);
+                    element.style.opacity = 1;
+                    await sleep(2000);
+                    element.style.transform = 'rotate(0deg)';
+                    playingDrinkinGame = false;
+                }
+            }
+
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            function randomIntFromInterval(min, max) {
+                return Math.floor(Math.random() * (max - min + 1) + min)
+            }
+        </script>
     </body>
 </html>
