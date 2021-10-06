@@ -1,0 +1,12 @@
+{
+  "name": "Smart-Club-Table",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/nejek16/Smart-Club-House.git",
+  "author": "nejek16 <kozjek.nejc198@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "http": "^0.0.1-security",
+    "socket.io": "^4.2.0"
+  }
+}
