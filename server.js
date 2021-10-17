@@ -47,3 +47,7 @@ but_drink.watch(function (err, value) {
     }
     if(value) { io.local.emit("button", "drinkigGame"); }
   });
+
+
+
+  require('child_process').exec("chromium-browser http://localhost:3000 --kiosk");
