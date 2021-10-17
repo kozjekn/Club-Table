@@ -21,8 +21,8 @@
             try{
                 const socket = io('http://localhost:3000');
                 socket.on('button', (event) =>{
-                    if(event == "drinkigGame"){ debugger; drinkingGame(); }
-                    else if(event == "handGame"){ debugger;handGame(); }
+                    if(event == "drinkigGame"){ drinkingGame(); }
+                    else if(event == "handGame"){ handGame(); }
                 });
             }catch(e){console.log(e);}
             
