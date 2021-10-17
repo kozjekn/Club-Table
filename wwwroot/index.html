@@ -11,12 +11,22 @@
             }
 
         </style>
+        <script src="./lib/socket.io.min.js"></script>
     </head>
     <body id="body">
-        <img id="logo" src="./assets/lasko_logo.png" style="display: block; margin: auto auto; ">
-        <img src="./assets/lkp_dr_team.png" style="display: block; margin: auto auto; top: 706px; ">
+        <img id="logo" src="./assets/lasko_logo.png" style="display: block; margin: auto auto;">
+        <img src="./assets/lkp_dr_team.png" style="display: block; margin: auto auto; top: 706px;">
 
         <script>
+            try{
+                const socket = io('http://localhost:3000');
+                socket.on('button', (event) =>{
+                    if(event == "drinkigGame"){ debugger; drinkingGame(); }
+                    else if(event == "handGame"){ debugger;handGame(); }
+                });
+            }catch(e){console.log(e);}
+            
+
             let playingHandGame = false;
             let playingDrinkinGame = false;
 
@@ -37,31 +47,17 @@
 
             async function drinkingGame(){
                 if(!playingDrinkinGame && !playingHandGame){
+                    let rotation = 0;
                     playingDrinkinGame = true;
                     let element = document.getElementById('logo')
-                    let iterations = randomIntFromInterval(16, 80);
+                    let iterations = randomIntFromInterval(360, 3600);
                     await sleep(500);
                     for(let i = 1; i < iterations; i++){
-                        let position = i % 4;
-                        let time = 300;
-                        //let time = ((iterations - i) + 1) * 75;
-                        //time = time < 200 ? 200 : time;
-                        if(position == 0){
-                            element.style.transform = 'rotate(0deg)'
-                            await sleep(time);
-                        }
-                        else if(position == 1){
-                            element.style.transform = 'rotate(90deg)'
-                            await sleep(time);
-                        }
-                        else if(position == 2){
-                            element.style.transform = 'rotate(180deg)'
-                            await sleep(time);
-                        }
-                        else if(position == 3){
-                            element.style.transform = 'rotate(270deg)'
-                            await sleep(time);
-                        }
+                        rotation ++;
+                        let time = 25 * ((iterations - i)/iterations);
+                        element.style.transform = 'rotate(' + rotation + 'deg)'
+                        await sleep(time);
+
                     }
                     await sleep(750);
                     element.style.opacity = 0;
@@ -76,7 +72,6 @@
                     playingDrinkinGame = false;
                 }
             }
-
             function sleep(ms) {
                 return new Promise(resolve => setTimeout(resolve, ms));
             }
