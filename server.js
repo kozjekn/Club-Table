@@ -88,4 +88,4 @@ but_drink.watch(function (err, value) {
 
 
 
-  //require('child_process').exec("chromium-browser http://localhost:3000 --kiosk");
+ require('child_process').exec("chromium-browser http://localhost:3000 --kiosk");
