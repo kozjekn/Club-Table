@@ -1,6 +1,6 @@
 const Gpio = require('onoff').Gpio;
 const but_hand = new Gpio(4, 'in', 'both'); 
-const but_drink = new Gpio(17, 'in', 'both'); 
+const but_drink = new Gpio(5, 'in', 'both'); 
 
 const fs = require('fs');
 const path = require('path');
@@ -75,7 +75,7 @@ but_hand.watch(function (err, value) {
       console.error('There was an error', err); 
     return;
     }
-    if(value) { io.local.emit("button", "handGame"); }
+    if(value) { console.log('Hand button prerssed'); io.local.emit("button", "handGame"); }
   });
 
 but_drink.watch(function (err, value) { 
@@ -83,7 +83,7 @@ but_drink.watch(function (err, value) {
       console.error('There was an error', err); 
     return;
     }
-    if(value) { io.local.emit("button", "drinkigGame"); }
+    if(value) { console.log('Drink button prerssed'); io.local.emit("button", "drinkigGame"); }
   });
 
 
